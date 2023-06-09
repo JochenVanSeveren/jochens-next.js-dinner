@@ -1,6 +1,7 @@
 import NavMenu from "./NavMenu";
 import "./globals.css";
 import { Roboto_Flex } from "next/font/google";
+import AuthProvider from "./AuthProvider";
 
 export const metadata = {
 	title: "jochens-next-dinner",
@@ -16,11 +17,13 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en">
-			<body className={roboto.className}>
-				<NavMenu />
-				{children}
-			</body>
-		</html>
+		<AuthProvider>
+			<html lang="en">
+				<body className={roboto.className}>
+					<NavMenu />
+					{children}
+				</body>
+			</html>
+		</AuthProvider>
 	);
 }

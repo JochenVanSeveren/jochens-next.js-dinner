@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./NavMenu.module.css";
+import { AuthButton } from "../components/AuthButtons";
 
-export default function NavMenu() {
+export default async function NavMenu() {
 	return (
 		<nav className={styles.nav}>
 			<Link href={"/"}>
@@ -21,11 +22,11 @@ export default function NavMenu() {
 					<Link href={"/cant-eats"}>Cant-eats</Link>
 				</li>
 				<li>
-					<Link href={"/preferences"}>Preferences</Link>
+					<Link href={"/likes"}>Likes</Link>
 				</li>
-				{/* TODO: change to account icon */}
+
 				<li>
-					<Link href={"/account"}>Acc</Link>
+					<AuthButton />
 				</li>
 			</ul>
 		</nav>
