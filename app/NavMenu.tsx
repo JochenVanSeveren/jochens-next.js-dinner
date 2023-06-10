@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./NavMenu.module.css";
-import { AuthButton } from "../components/AuthButtons";
+import { AuthButton } from "@/components/AuthButtons";
 
 export default async function NavMenu() {
 	return (

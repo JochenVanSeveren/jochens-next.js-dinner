@@ -5,6 +5,17 @@ It details jochens dinner requirements (own recipes, preferences, cant eats...)
 
 ## Getting Started
 
+Add a `.env` file similar to the following:
+
+```properties
+GITHUB_ID=
+GITHUB_SECRET=
+NEXTAUTH_SECRET=
+
+DATABASE_URL=
+SHADOW_DATABASE_URL=
+```
+
 First, run the development server:
 
 ```bash
@@ -16,3 +27,5 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+[![wakatime](https://wakatime.com/badge/user/05f04551-feb7-4cf4-ba9b-92a5de5ad5a4/project/a417912f-6dab-4a9e-9d81-6dfe41cf5c2f.svg?style=for-the-badge)](https://wakatime.com/badge/user/05f04551-feb7-4cf4-ba9b-92a5de5ad5a4/project/a417912f-6dab-4a9e-9d81-6dfe41cf5c2f)
