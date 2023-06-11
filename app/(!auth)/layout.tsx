@@ -1,8 +1,7 @@
 import NavMenu from "./NavMenu";
-import "./globals.css";
+import "../globals.css";
 import { Roboto_Flex } from "next/font/google";
 import AuthProvider from "./AuthProvider";
-
 export const metadata = {
 	title: "jochens-next-dinner",
 	description:

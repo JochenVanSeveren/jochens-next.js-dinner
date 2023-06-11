@@ -1,18 +1,21 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export const dynamic = "force-static"; // no necessary, just for demonstration
 
 export default function Home() {
 	return (
 		<main>
-			<div>Op deze website kan je de recepten van Jochen vinden</div>
-			<div>
-				De ingredienten die hij niet kan eten door{" "}
+			<h1>
+				Met mijn darmaandoening (
 				<a href="https://www.gezondheidenwetenschap.be/richtlijnen/prikkelbaredarmsyndroom-pds">
 					pbs
 				</a>
-			</div>{" "}
-			<div>En wat hij in de plaats wel kan eten</div>
+				) krijg ik vaak volgende vragen:
+			</h1>
+			<Link href={"/cant-eats"}>Wat mag je niet eten?</Link>
+			<Link href={"/likes"}>Wat mag je dan wel eten?</Link>
+			<Link href={"/recipes"}>Wat maak jij dan zoal?</Link>
 		</main>
 	);
 }
