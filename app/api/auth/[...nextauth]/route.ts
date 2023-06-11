@@ -1,21 +1,23 @@
 import NextAuth from "next-auth";
-import type { NextAuthOptions } from "next-auth";
+import type { NextAuthOptions, DefaultSession, Session } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { DefaultSession } from "next-auth";
+import { User as PrismaUser } from "@prisma/client";
+
+interface User extends PrismaUser {
+	role: string;
+}
 
 declare module "next-auth" {
 	interface Session {
-		user?: {
-			role: string;
-		} & DefaultSession["user"];
+		user: User & DefaultSession["user"];
 	}
-	interface User {
-		id: string;
-		name: string;
-		email?: string;
+
+	interface User extends PrismaUser {}
+
+	interface JWT extends Record<string, any> {
 		role: string;
 	}
 }
@@ -23,77 +25,54 @@ declare module "next-auth" {
 export const authOptions: NextAuthOptions = {
 	adapter: PrismaAdapter(prisma),
 	providers: [
-		GithubProvider({
-			clientId: process.env.GITHUB_ID!,
-			clientSecret: process.env.GITHUB_SECRET!,
-		}),
 		CredentialsProvider({
-			name: "As invited user",
+			type: "credentials",
+			name: "given password",
 			credentials: {
-				passphrase: { label: "passphrase", type: "password" },
-			},
-			async authorize() {
-				const user = {
-					id: Math.random().toString(),
-					name: "Demo User",
-					email: "demo@demo.com",
-					role: "DEMO_USER",
-				};
-				return user;
-			},
-		}),
-		CredentialsProvider({
-			name: "as demo user",
-			credentials: {},
-			async authorize() {
-				const user = {
-					id: Math.random().toString(),
-					name: "Demo User",
-					email: "demo@demo.com",
-					role: "DEMO_USER",
-				};
-				return user;
-			},
-		}),
-		CredentialsProvider({
-			name: "Credentials",
-			credentials: {
-				password: { label: "password", type: "password" },
+				password: {
+					label: "password",
+					type: "password",
+					placeholder: "password",
+				},
 			},
 			async authorize(credentials) {
-				// const user = await prisma.user.findUnique({
-				// 	where: {
-				// 		password: credentials?.password,
-				// 	},
-				// });
-				// if (user) {
-				// 	return user;
-				// } else {
-				// 	return null;
-				// }
-				if (credentials?.password === "password") {
-					return {
-						id: Math.random().toString(),
-						name: "Demo User",
-						role: "DEMO_USER",
-					};
+				let user: User | null = null;
+				if (credentials?.password === process.env.INVITED_USER_SECRET) {
+					user = await prisma.user.findUnique({
+						where: {
+							id: "clirgjfrk000008mo2j8y52px",
+						},
+					});
+				}
+				if (user) {
+					return user;
 				} else {
 					return null;
 				}
 			},
 		}),
+		GithubProvider({
+			clientId: process.env.GITHUB_ID!,
+			clientSecret: process.env.GITHUB_SECRET!,
+		}),
 	],
 	callbacks: {
-		session({ session, user }) {
-			if (session.user) {
-				session.user.role = user.role;
+		session({ session, token, user }) {
+			if (token) {
+				session.user.role = token.role;
 			}
 			return session;
 		},
+		jwt({ token, user, account, profile }) {
+			if (user) {
+				token.role = user.role;
+			}
+			return token;
+		},
 	},
-
-	pages: {
-		signIn: "/auth/signin",
+	session: {
+		// Set to jwt in order to CredentialsProvider works properly
+		strategy: "jwt",
 	},
 };
 
