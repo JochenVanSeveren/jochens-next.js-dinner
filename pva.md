@@ -6,7 +6,5 @@
 # Color scheme
 
 
-
-# TODO's:
-
-de edit routes alleen toegankelijk maken voor de admin
+# TODO
+- [x] Role based [auth](https://reacthustle.com/blog/nextjs-setup-role-based-authentication)

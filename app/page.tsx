@@ -8,7 +8,10 @@ export default function Home() {
 		<main>
 			<h1>
 				Met mijn darmaandoening (
-				<a href="https://www.gezondheidenwetenschap.be/richtlijnen/prikkelbaredarmsyndroom-pds">
+				<a
+					href="https://www.gezondheidenwetenschap.be/richtlijnen/prikkelbaredarmsyndroom-pds"
+					target="_blank"
+					rel="noopener noreferrer">
 					pbs
 				</a>
 				) krijg ik vaak volgende vragen:

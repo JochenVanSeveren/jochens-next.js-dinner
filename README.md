@@ -3,6 +3,14 @@
 Website testing out next.js 13 newest features
 It details jochens dinner requirements (own recipes, preferences, cant eats...)
 
+# Tech Stack
+
+- Next.js13 (app directory) ts
+- Prisma
+- NextAuth with custom providers
+- TailwindCSS
+
+
 ## Getting Started
 
 Add a `.env` file similar to the following:

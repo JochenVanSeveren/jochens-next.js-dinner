@@ -1,77 +1,55 @@
-import NextAuth from "next-auth";
-import type { NextAuthOptions, DefaultSession, Session } from "next-auth";
-import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { prisma } from "@/lib/prisma";
+import NextAuth, { NextAuthOptions } from "next-auth";
+import { userService } from "@/services/UserService";
+import GithubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { User as PrismaUser } from "@prisma/client";
-
-interface User extends PrismaUser {
-	role: string;
-}
-
-declare module "next-auth" {
-	interface Session {
-		user: User & DefaultSession["user"];
-	}
-
-	interface User extends PrismaUser {}
-
-	interface JWT extends Record<string, any> {
-		role: string;
-	}
+import { prisma } from "@/lib/prisma";
+if (!process.env.NEXTAUTH_SECRET) {
+	throw new Error("Please provide process.env.NEXTAUTH_SECRET");
 }
 
 export const authOptions: NextAuthOptions = {
 	adapter: PrismaAdapter(prisma),
 	providers: [
-		CredentialsProvider({
-			type: "credentials",
-			name: "given password",
-			credentials: {
-				password: {
-					label: "password",
-					type: "password",
-					placeholder: "password",
-				},
-			},
-			async authorize(credentials) {
-				let user: User | null = null;
-				if (credentials?.password === process.env.INVITED_USER_SECRET) {
-					user = await prisma.user.findUnique({
-						where: {
-							id: "clirgjfrk000008mo2j8y52px",
-						},
-					});
-				}
-				if (user) {
-					return user;
-				} else {
-					return null;
-				}
-			},
-		}),
 		GithubProvider({
 			clientId: process.env.GITHUB_ID!,
 			clientSecret: process.env.GITHUB_SECRET!,
 		}),
+		CredentialsProvider({
+			name: "Credentials",
+			id: "credentials",
+			credentials: {
+				password: { label: "Password", type: "password" },
+			},
+			async authorize(credentials) {
+				if (!credentials) {
+					throw new Error("No credentials.");
+				}
+				const { password } = credentials;
+				try {
+					const user = await userService.signInCredentials(password);
+					return user;
+				} catch (error) {
+					return null;
+				}
+			},
+		}),
 	],
 	callbacks: {
-		session({ session, token, user }) {
-			if (token) {
-				session.user.role = token.role;
-			}
-			return session;
-		},
-		jwt({ token, user, account, profile }) {
+		async jwt({ token, user }) {
 			if (user) {
 				token.role = user.role;
 			}
 			return token;
 		},
+		session({ session, token }) {
+			if (token && session.user) {
+				session.user.role = token.role;
+			}
+			return session;
+		},
 	},
 	session: {
-		// Set to jwt in order to CredentialsProvider works properly
 		strategy: "jwt",
 	},
 };
