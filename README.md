@@ -3,17 +3,16 @@
 Website testing out next.js 13 newest features
 It details jochens dinner requirements (own recipes, preferences, cant eats...)
 
-# Tech Stack
+## Tech Stack
 
 - Next.js13 (app directory) ts
 - Prisma
 - NextAuth with custom providers
 - TailwindCSS
 
-
 ## Getting Started
 
-Add a `.env` file similar to the following:
+Add a `.env.local` file similar to the following:
 
 ```properties
 GITHUB_ID=
@@ -22,6 +21,8 @@ NEXTAUTH_SECRET=
 
 DATABASE_URL=
 SHADOW_DATABASE_URL=
+
+INVITED_USER_SECRET=
 ```
 
 First, run the development server:
