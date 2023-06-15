@@ -23,7 +23,8 @@ export default async function RecipePage({ params }: Props) {
 		return <div>No Recipe Found</div>;
 	}
 
-	const { title, ingredients, herbs, image, steps } = recipe ?? {};
+	const { title, ingredients, optionalIngredients, herbs, image, steps } =
+		recipe ?? {};
 
 	return (
 		<div>
@@ -37,6 +38,12 @@ export default async function RecipePage({ params }: Props) {
 			<h2>Ingredients</h2>
 			<ul>
 				{ingredients.map((ingredient) => (
+					<li key={ingredient}>{ingredient}</li>
+				))}
+			</ul>
+			<h2>Optional Ingredients</h2>
+			<ul>
+				{optionalIngredients.map((ingredient) => (
 					<li key={ingredient}>{ingredient}</li>
 				))}
 			</ul>

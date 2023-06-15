@@ -18,13 +18,15 @@ export default async function RecipeForm({ params }: Props) {
 		where: { id: params.id },
 	});
 
-	const { title, ingredients, herbs, image, steps } = recipe ?? {
-		title: "",
-		ingredients: [],
-		herbs: [],
-		image: "",
-		steps: [],
-	};
+	const { title, ingredients, optionalIngredients, herbs, image, steps } =
+		recipe ?? {
+			title: "",
+			ingredients: [],
+			optionalIngredients: [],
+			herbs: [],
+			image: "",
+			steps: [],
+		};
 
 	return (
 		<div>
@@ -38,6 +40,12 @@ export default async function RecipeForm({ params }: Props) {
 			<h2>Ingredients</h2>
 			<ul>
 				{ingredients.map((ingredient) => (
+					<li key={ingredient}>{ingredient}</li>
+				))}
+			</ul>
+			<h2>Optional Ingredients</h2>
+			<ul>
+				{optionalIngredients.map((ingredient) => (
 					<li key={ingredient}>{ingredient}</li>
 				))}
 			</ul>

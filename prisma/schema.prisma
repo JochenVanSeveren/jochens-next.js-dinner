@@ -64,14 +64,15 @@ model VerificationToken {
 }
 
 model Recipe {
-  id          String   @id @default(cuid())
-  title       String
-  ingredients String[]
-  herbs       String[]
-  steps       String[]
-  image       String?
-  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                  String   @id @default(cuid())
+  title               String
+  ingredients         String[]
+  optionalIngredients String[] @default([])
+  herbs               String[] @default([])
+  steps               String[]
+  image               String?
+  author              User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId            String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 }
