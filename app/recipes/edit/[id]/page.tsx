@@ -1,29 +1,30 @@
+"use client";
+
 import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import { Recipe } from "@prisma/client";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-// export const revalidate = 60 * 60 * 24; // 1 day
+import { useState } from "react";
 
 interface Props {
 	params: { id: string };
 }
 
-// export async function generateStaticParams({ params }: Props) {
-// 	const recipe = await prisma.recipe.findUnique({ where: { id: params.id } });
-// 	return recipe;
-// }
+export default async function RecipeForm({ params }: Props) {
+	const [isdmage, setImage] = useState<string | null>(null);
 
-export default async function RecipePage({ params }: Props) {
 	const recipe: Recipe | null = await prisma.recipe.findUnique({
 		where: { id: params.id },
 	});
 
-	if (!recipe) {
-		return <div>No Recipe Found</div>;
-	}
-
-	const { title, ingredients, herbs, image, steps } = recipe ?? {};
+	const { title, ingredients, herbs, image, steps } = recipe ?? {
+		title: "",
+		ingredients: [],
+		herbs: [],
+		image: "",
+		steps: [],
+	};
 
 	return (
 		<div>
@@ -52,10 +53,6 @@ export default async function RecipePage({ params }: Props) {
 					<li key={step}>{step}</li>
 				))}
 			</ol>{" "}
-			<button>
-				{" "}
-				<Link href={`/recipes/edit/${recipe.id}`}>TEST</Link>
-			</button>
 		</div>
 	);
 }

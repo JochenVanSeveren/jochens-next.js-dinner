@@ -8,7 +8,7 @@ if (!process.env.NEXTAUTH_SECRET) {
 	throw new Error("Please provide process.env.NEXTAUTH_SECRET");
 }
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
 	adapter: PrismaAdapter(prisma),
 	providers: [
 		GithubProvider({

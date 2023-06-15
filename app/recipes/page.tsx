@@ -1,9 +1,10 @@
 import RecipeCard from "./RecipeCard";
 // import styles from "./page.module.css";
 import { prisma } from "@/lib/prisma";
+import { Recipe } from "@prisma/client";
 
 export default async function Recipes() {
-	const recipes = await prisma.recipe.findMany();
+	const recipes: Recipe[] = await prisma.recipe.findMany();
 
 	return (
 		<div>
