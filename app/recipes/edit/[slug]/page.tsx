@@ -67,3 +67,9 @@
 // 		</div>
 // 	);
 // }
+
+"use client";
+
+export default function RecipeFormPage() {
+	return <h1>Recipe Form</h1>;
+}
