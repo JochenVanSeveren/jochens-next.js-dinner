@@ -2,6 +2,8 @@ import NavMenu from "./NavMenu";
 import "./globals.css";
 import { Roboto_Flex } from "next/font/google";
 import AuthProvider from "./AuthProvider";
+import { Analytics } from "@vercel/analytics/react";
+
 export const metadata = {
 	title: "jochens-next-dinner",
 	description:
@@ -22,6 +24,7 @@ export default function RootLayout({
 					<NavMenu />
 					{children}
 				</body>
+				<Analytics />
 			</html>
 		</AuthProvider>
 	);
