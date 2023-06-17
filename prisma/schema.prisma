@@ -65,6 +65,7 @@ model VerificationToken {
 
 model Recipe {
   id                  String   @id @default(cuid())
+  slug                String   @unique
   title               String
   ingredients         String[]
   optionalIngredients String[] @default([])

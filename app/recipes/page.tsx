@@ -11,7 +11,7 @@ export default async function Recipes() {
 			<h1>Recipes</h1>
 			<div>
 				{recipes.map((recipe) => {
-					return <RecipeCard key={recipe.id} recipe={recipe} />;
+					return <RecipeCard key={recipe.slug} recipe={recipe} />;
 				})}
 			</div>
 		</div>

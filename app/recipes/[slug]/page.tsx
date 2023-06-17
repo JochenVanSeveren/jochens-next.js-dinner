@@ -3,20 +3,14 @@ import Image from "next/image";
 import { Recipe } from "@prisma/client";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-// export const revalidate = 60 * 60 * 24; // 1 day
 
 interface Props {
-	params: { id: string };
+	params: { slug: string };
 }
-
-// export async function generateStaticParams({ params }: Props) {
-// 	const recipe = await prisma.recipe.findUnique({ where: { id: params.id } });
-// 	return recipe;
-// }
 
 export default async function RecipePage({ params }: Props) {
 	const recipe: Recipe | null = await prisma.recipe.findUnique({
-		where: { id: params.id },
+		where: { slug: params.slug },
 	});
 
 	if (!recipe) {
@@ -61,7 +55,7 @@ export default async function RecipePage({ params }: Props) {
 			</ol>{" "}
 			<button>
 				{" "}
-				<Link href={`/recipes/edit/${recipe.id}`}>TEST</Link>
+				<Link href={`/recipes/edit/${recipe.slug}`}>TEST</Link>
 			</button>
 		</div>
 	);

@@ -1,37 +1,40 @@
 "use client";
 
-import { prisma } from "@/lib/prisma";
+// import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import { Recipe } from "@prisma/client";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
+import urlSlug from "url-slug";
 
 interface Props {
-	params: { id: string };
+	params: { slug: string };
 }
 
-export default async function RecipeForm({ params }: Props) {
-	const [isdmage, setImage] = useState<string | null>(null);
+export default async function RecipeFormPage({ params }: Props) {
+	// const slug = urlSlug(recipe.title);
 
-	const recipe: Recipe | null = await prisma.recipe.findUnique({
-		where: { id: params.id },
-	});
+	// const [ismage, setImage] = useState<string | null>(null);
 
-	const { title, ingredients, optionalIngredients, herbs, image, steps } =
-		recipe ?? {
-			title: "",
-			ingredients: [],
-			optionalIngredients: [],
-			herbs: [],
-			image: "",
-			steps: [],
-		};
+	// const recipe: Recipe | null = await prisma.recipe.findUnique({
+	// 	where: { id: params.slug },
+	// });
+
+	// const { title, ingredients, optionalIngredients, herbs, image, steps } =
+	// 	recipe ?? {
+	// 		title: "",
+	// 		ingredients: [],
+	// 		optionalIngredients: [],
+	// 		herbs: [],
+	// 		image: "",
+	// 		steps: [],
+	// 	};
 
 	return (
 		<div>
-			<h1>Recipe: {title}</h1>
-			<Image
+			{/* <h1>Recipe: {title}</h1> */}
+			{/* <Image
 				src={image || ""}
 				alt={title}
 				width={500} // specify your desired width
@@ -60,7 +63,7 @@ export default async function RecipeForm({ params }: Props) {
 				{steps.map((step) => (
 					<li key={step}>{step}</li>
 				))}
-			</ol>{" "}
+			</ol>{" "} */}
 		</div>
 	);
 }
