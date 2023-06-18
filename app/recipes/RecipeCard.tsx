@@ -1,6 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import Image from "next/image";
 import { Recipe } from "@prisma/client";
+import { CldImage } from "next-cloudinary";
 
 interface Props {
 	recipe: Recipe;
@@ -12,7 +14,7 @@ export default function RecipeCard({ recipe }: Props) {
 		<div>
 			<h1>{title}</h1>
 			<Link href={`/recipes/${slug}`}>
-				<Image
+				<CldImage
 					src={image ?? ""}
 					alt={title}
 					width={500} // specify your desired width

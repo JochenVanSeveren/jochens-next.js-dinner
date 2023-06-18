@@ -19,12 +19,12 @@ export default function RootLayout({
 }) {
 	return (
 		<AuthProvider>
-			<html lang="en">
+			<html lang="en" suppressHydrationWarning={true}>
 				<body className={roboto.className}>
 					<NavMenu />
 					{children}
 				</body>
-				<Analytics />
+				{/* <Analytics /> */}
 			</html>
 		</AuthProvider>
 	);

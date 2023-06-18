@@ -1,8 +1,9 @@
 import { prisma } from "@/lib/prisma";
-import Image from "next/image";
 import { Recipe } from "@prisma/client";
-import { redirect } from "next/navigation";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import TestImage from "./TestImage";
+import { CldImage } from "next-cloudinary";
 
 interface Props {
 	params: { slug: string };
@@ -14,7 +15,7 @@ export default async function RecipePage({ params }: Props) {
 	});
 
 	if (!recipe) {
-		return <div>No Recipe Found</div>;
+		notFound();
 	}
 
 	const { title, ingredients, optionalIngredients, herbs, image, steps } =
@@ -23,12 +24,7 @@ export default async function RecipePage({ params }: Props) {
 	return (
 		<div>
 			<h1>Recipe: {title}</h1>
-			<Image
-				src={image || ""}
-				alt={title}
-				width={500} // specify your desired width
-				height={300} // and height
-			/>
+			<TestImage image={image ?? ""} title={title} />
 			<h2>Ingredients</h2>
 			<ul>
 				{ingredients.map((ingredient) => (
@@ -55,7 +51,7 @@ export default async function RecipePage({ params }: Props) {
 			</ol>{" "}
 			<button>
 				{" "}
-				<Link href={`/recipes/edit/${recipe.slug}`}>TEST</Link>
+				<Link href={`/recipes/edit/${recipe.slug}`}>Edit</Link>
 			</button>
 		</div>
 	);

@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['static.ah.nl'],
+        loader: 'cloudinary',
+        path: 'https://res.cloudinary.com/dufz34j2z/image/upload',
     },
-
 }
 
-module.exports = nextConfig
+module.exports = nextConfig;
