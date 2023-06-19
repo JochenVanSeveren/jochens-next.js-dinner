@@ -21,13 +21,13 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
 		}
 	}, [title]);
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
 		const formData = new FormData(e.currentTarget);
 
 		// TODO
-	};
+	}
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		// check if file is image

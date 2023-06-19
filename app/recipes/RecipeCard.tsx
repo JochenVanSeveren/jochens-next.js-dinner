@@ -1,8 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import { Recipe } from "@prisma/client";
-import { CldImage } from "next-cloudinary";
+import CldImage from "@/components/elements/CldImage";
 
 interface Props {
 	recipe: Recipe;

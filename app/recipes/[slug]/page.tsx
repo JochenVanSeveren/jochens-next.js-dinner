@@ -2,8 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { Recipe } from "@prisma/client";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import TestImage from "./TestImage";
-import { CldImage } from "next-cloudinary";
+import CldImage from "@/components/elements/CldImage";
+import AuthCheck from "@/components/AuthCheck";
 
 interface Props {
 	params: { slug: string };
@@ -24,7 +24,13 @@ export default async function RecipePage({ params }: Props) {
 	return (
 		<div>
 			<h1>Recipe: {title}</h1>
-			<TestImage image={image ?? ""} title={title} />
+			<CldImage
+				src={image ?? ""}
+				alt={title}
+				width={500} // specify your desired width
+				height={300} // and height
+				sizes="100vw"
+			/>
 			<h2>Ingredients</h2>
 			<ul>
 				{ingredients.map((ingredient) => (
@@ -49,10 +55,12 @@ export default async function RecipePage({ params }: Props) {
 					<li key={step}>{step}</li>
 				))}
 			</ol>{" "}
-			<button>
-				{" "}
-				<Link href={`/recipes/edit/${recipe.slug}`}>Edit</Link>
-			</button>
+			<AuthCheck permittedRoles={["ADMIN"]}>
+				<button>
+					{" "}
+					<Link href={`/recipes/edit/${recipe.slug}`}>Edit</Link>
+				</button>
+			</AuthCheck>
 		</div>
 	);
 }
