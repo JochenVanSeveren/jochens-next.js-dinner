@@ -4,6 +4,7 @@ import { Recipe as RecipeType } from "@prisma/client";
 import { use, useEffect, useState } from "react";
 import urlSlug from "url-slug";
 import Image from "next/image";
+import { handleRecipeSubmit } from "@/lib/actions";
 
 type RecipeFormProps = {
 	recipe: RecipeType | null;
@@ -21,26 +22,26 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
 		}
 	}, [title]);
 
-	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault();
+	// async function handleSubmit(formData: FormData) {
+	// 	"use server";
+	// 	// e.preventDefault();
 
-		const formData = new FormData(e.currentTarget);
-
-		// TODO
-	}
+	// 	// const formData = new FormData(e.currentTarget);
+	// 	console.log(formData.get("image"));
+	// 	// TODO
+	// }
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		// check if file is image
-
 		if (!e.target.files) return;
-		setImage(URL.createObjectURL(e.target.files[0]));
+		// setImage(URL.createObjectURL(e.target.files[0]));
 	}
 
 	return (
 		<>
 			<h1>RecipeForm</h1>
 
-			<div>
+			<form action={handleRecipeSubmit}>
 				<input
 					type="text"
 					name="title"
@@ -48,19 +49,20 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
 					onChange={(e) => setTitle(e.target.value)}
 				/>
 				<p>Slug: {slug}</p>
-				<Image
+				{/* <Image
 					src={image || ""}
 					alt={"Upload image"}
 					width={500} // specify your desired width
 					height={300} // and height
-				/>
+				/> */}
 				<input
 					type="file"
 					name="image"
 					accept="image/*"
 					onChange={handleChange}
 				/>
-			</div>
+				<button type="submit">Submit</button>
+			</form>
 		</>
 	);
 }
