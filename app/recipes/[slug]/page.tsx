@@ -29,7 +29,6 @@ export default async function RecipePage({ params }: Props) {
 				alt={title}
 				width={500} // specify your desired width
 				height={300} // and height
-				sizes="100vw"
 			/>
 			<h2>Ingredients</h2>
 			<ul>

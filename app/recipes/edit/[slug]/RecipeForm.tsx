@@ -2,6 +2,7 @@
 
 import { Recipe as RecipeType } from "@prisma/client";
 import { useEffect, useState } from "react";
+import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import urlSlug from "url-slug";
 import { handleRecipeSubmit } from "@/lib/actions";
 import CldImage from "@/components/elements/CldImage";
@@ -12,11 +13,14 @@ type RecipeFormProps = {
 
 export default function RecipeForm({ recipe }: RecipeFormProps) {
 	const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
+	const [imageChanged, setImageChanged] = useState<boolean>(false);
 
 	const {} = recipe ?? {};
 	const [title, setTitle] = useState<string>(recipe?.title ?? "");
 	const [slug, setSlug] = useState<string>(recipe?.slug ?? "");
-	const [image, setImage] = useState<string>(recipe?.image ?? "");
+	const [imageSrc, setImageSrc] = useState<string>(recipe?.image ?? "");
+
+	const { pending } = useFormStatus();
 
 	useEffect(() => {
 		if (title) {
@@ -43,7 +47,8 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
 
 		// check if file is an image with a permitted type and within size limit
 		if (file && permittedTypes.includes(file.type) && file.size <= MAX_SIZE) {
-			setImage(URL.createObjectURL(file));
+			setImageSrc(URL.createObjectURL(file));
+			setImageChanged(true); // Image has changed
 		} else {
 			setDialogIsOpen(true);
 		}
@@ -55,6 +60,11 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
 
 			<form action={handleRecipeSubmit}>
 				<input
+					type="hidden"
+					name="imageChanged"
+					value={imageChanged.toString()}
+				/>
+				<input
 					type="text"
 					name="title"
 					value={title}
@@ -62,14 +72,14 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
 				/>
 				<p>Slug: {slug}</p>
 				<CldImage
-					src={image || ""}
+					src={imageSrc || ""}
 					alt={"Upload image"}
 					width={500} // specify your desired width
 					height={300} // and height
 				/>
 				<input
 					type="file"
-					name="image"
+					name="file"
 					accept="image/*"
 					onChange={handleChange}
 				/>
@@ -77,7 +87,9 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
 					Please select an image (JPEG, PNG) smaller than 20MB
 					<button onClick={() => setDialogIsOpen(false)}>OK</button>
 				</dialog>
-				<button type="submit">Submit</button>
+				<button type="submit" disabled={pending}>
+					Submit
+				</button>
 			</form>
 		</>
 	);
