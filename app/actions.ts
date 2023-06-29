@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 const cloudinary = require("cloudinary").v2;
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { cookies, headers } from "next/headers";
 import { NextAuthOptions, getServerSession } from "next-auth";
 import { RecipeEntrySchema } from "@/lib/validationSchema";
