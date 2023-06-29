@@ -1,5 +1,5 @@
 import NavMenu from "./NavMenu";
-import "./globals.css";
+import "@/styles/globals.css";
 import { Roboto_Flex } from "next/font/google";
 import AuthProvider from "./AuthProvider";
 import { Analytics } from "@vercel/analytics/react";

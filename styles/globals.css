@@ -25,3 +25,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 }  */
+
+label {
+	user-select: none;
+}

@@ -8,7 +8,7 @@ if (!process.env.NEXTAUTH_SECRET) {
 	throw new Error("Please provide process.env.NEXTAUTH_SECRET");
 }
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
 	adapter: PrismaAdapter(prisma),
 	providers: [
 		GithubProvider({
@@ -39,12 +39,14 @@ const authOptions: NextAuthOptions = {
 		async jwt({ token, user }) {
 			if (user) {
 				token.role = user.role;
+				token.id = user.id;
 			}
 			return token;
 		},
 		session({ session, token }) {
 			if (token && session.user) {
 				session.user.role = token.role;
+				session.user.id = token.id;
 			}
 			return session;
 		},

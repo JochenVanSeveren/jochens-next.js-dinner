@@ -37,3 +37,8 @@ next-env.d.ts
 .env
 
 /prisma/seed/*
+
+cypress/videos/*
+cypress/screenshots/*
+
+cypress.env.json
