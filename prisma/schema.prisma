@@ -53,6 +53,8 @@ model User {
   sessions      Session[]
   role          String    @default("demo_user")
   Recipe        Recipe[]
+  CantEat       CantEat[]
+  Like          Like[]
 }
 
 model VerificationToken {
@@ -76,4 +78,23 @@ model Recipe {
   authorId            String
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
+}
+
+model CantEat {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  category  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
