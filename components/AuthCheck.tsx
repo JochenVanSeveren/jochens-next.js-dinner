@@ -14,12 +14,6 @@ export default function AuthCheck({
 	if (status === "authenticated" && authorized(session, permittedRoles)) {
 		return <>{children}</>;
 	} else {
-		if (
-			permittedRoles.includes("ADMIN") ||
-			permittedRoles.includes("DEMO_ADMIN")
-		)
-			return <></>;
-
 		return <></>;
 	}
 }

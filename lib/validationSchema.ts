@@ -18,3 +18,10 @@ export const RecipeEntrySchema = z.object({
 export type RecipeFormattedErrors = z.inferFormattedError<
 	typeof RecipeEntrySchema
 >;
+
+export const LikeEntrySchema = z.object({
+	name: z.string().nonempty({ message: "Name is required" }),
+	category: z.string().nonempty({ message: "Category is required" }),
+});
+
+export type LikeFormattedErrors = z.inferFormattedError<typeof LikeEntrySchema>;

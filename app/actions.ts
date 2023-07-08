@@ -5,10 +5,10 @@ const cloudinary = require("cloudinary").v2;
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { cookies, headers } from "next/headers";
 import { NextAuthOptions, getServerSession } from "next-auth";
-import { RecipeEntrySchema } from "@/lib/validationSchema";
+import { RecipeEntrySchema, LikeEntrySchema } from "@/lib/validationSchema";
 import { redirect } from "next/navigation";
-import { log } from "console";
 import { revalidatePath } from "next/cache";
+import { Prisma } from "@prisma/client";
 
 export async function handleRecipeSubmit(
 	slug: string,
@@ -86,6 +86,30 @@ export async function handleRecipeSubmit(
 	redirect(`/recipes/${slug}`);
 }
 
+export async function handleRecipeDelete(id: string, image: string | null) {
+	if (!id) {
+		throw new Error("No recipe id provided");
+	}
+
+	if (image) {
+		cloudinary.uploader.destroy(image, function (error: any, result: any) {
+			console.log(result, error);
+		});
+	}
+
+	await prisma.recipe.delete({
+		where: {
+			id,
+		},
+	});
+	// .then(() => {
+	// 	log("Recipe deleted");
+	// 	// not working
+	revalidatePath(`/recipes/`);
+	// 	redirect(`/recipes/`);
+	// });
+}
+
 async function uploadImageToCloudinary(formdata: FormData) {
 	const timestamp = Date.now() / 1000;
 
@@ -144,26 +168,80 @@ export const getServerActionSession = (authConfig: NextAuthOptions) => {
 	return getServerSession(req, res, authConfig); // authConfig is your [...nextAuth] route config
 };
 
-export async function handleRecipeDelete(id: string, image: string | null) {
+export async function handleLikeSubmit(
+	id: string | null,
+	name: string,
+	category: string
+) {
+	// get author
+	const session = await getServerActionSession(authOptions);
+	const authorId = session?.user?.id;
+
+	// validate
+	const parsed = LikeEntrySchema.safeParse({
+		name,
+		category,
+	});
+
+	if (!parsed.success) {
+		return { error: parsed.error.format() };
+	}
+	try {
+		if (id) {
+			await prisma.like.update({
+				where: { id },
+				data: {
+					name,
+					category,
+				},
+			});
+		} else {
+			await prisma.like.create({
+				data: {
+					name,
+					category,
+					author: {
+						connect: {
+							id: authorId,
+						},
+					},
+				},
+			});
+		}
+	} catch (error: unknown) {
+		if (error instanceof Error) {
+			const prismaError = error as Prisma.PrismaClientKnownRequestError;
+			if (prismaError.code === "P2002") {
+				// Handle the error here. This error code indicates a unique constraint violation, which
+				// would happen if a new record is being created with a `name` value that already exists
+				// in the database.
+				return {
+					error: {
+						_errors: [],
+						name: {
+							_errors: ["A record with this name already exists."],
+						},
+					},
+				};
+			}
+		}
+		// If the error isn't a P2002, re-throw it
+		throw error;
+	}
+
+	revalidatePath(`/likes`);
+}
+
+export async function handleLikeDelete(id: string) {
 	if (!id) {
-		throw new Error("No recipe id provided");
+		throw new Error("No like id provided");
 	}
 
-	if (image) {
-		cloudinary.uploader.destroy(image, function (error: any, result: any) {
-			console.log(result, error);
-		});
-	}
-
-	await prisma.recipe.delete({
+	await prisma.like.delete({
 		where: {
 			id,
 		},
 	});
-	// .then(() => {
-	// 	log("Recipe deleted");
-	// 	// not working
-	// 	revalidatePath(`/recipes/`);
-	// 	redirect(`/recipes/`);
-	// });
+
+	revalidatePath(`/likes`);
 }

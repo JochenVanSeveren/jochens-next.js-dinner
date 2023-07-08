@@ -9,6 +9,8 @@ export function AuthButton() {
 		return <>...</>;
 	}
 
+	//TODO: add skeleton loader
+
 	if (status === "authenticated") {
 		return (
 			<div>

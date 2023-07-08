@@ -151,11 +151,7 @@ export default function RecipeForm({ recipe }: RecipeFormProps) {
 					Save
 				</button>
 			</form>{" "}
-			{recipe?.id && (
-				<form onSubmit={handleDelete}>
-					<button type="submit">Delete</button>
-				</form>
-			)}
+			{recipe?.id && <button onClick={handleDelete}>Delete</button>}
 		</>
 	);
 }

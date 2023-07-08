@@ -1,7 +1,7 @@
 import NavMenu from "./NavMenu";
 import "@/styles/globals.css";
 import { Roboto_Flex } from "next/font/google";
-import AuthProvider from "./AuthProvider";
+import AuthProvider from "../components/AuthProvider";
 import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
@@ -24,7 +24,7 @@ export default function RootLayout({
 					<NavMenu />
 					{children}
 				</body>
-				{/* <Analytics /> */}
+				<Analytics />
 			</html>
 		</AuthProvider>
 	);
