@@ -20,6 +20,31 @@ export class InMemoryUserService implements IUserService {
 			throw new Error("Invalid password");
 		}
 	}
+	async signInDemoCredentials(): Promise<User | Promise<User>> {
+		const user = (await prisma.user.findUnique({
+			where: {
+				id: "clirgjfrk000008mo2j8y52py",
+			},
+		})) as User;
+
+		if (!user) {
+			throw new Error("User not found");
+		}
+		return user;
+	}
+
+	async signInDemoAdminCredentials(): Promise<User | Promise<User>> {
+		const user = (await prisma.user.findUnique({
+			where: {
+				id: "clirgjfrk000008mo2j8y52pz",
+			},
+		})) as User;
+
+		if (!user) {
+			throw new Error("User not found");
+		}
+		return user;
+	}
 }
 
 export const userService = new InMemoryUserService();

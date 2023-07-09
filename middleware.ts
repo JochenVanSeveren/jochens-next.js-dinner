@@ -1,10 +1,15 @@
 import { getToken } from "next-auth/jwt";
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
-
+enum Role {
+	ADMIN = "ADMIN",
+	DEMO_ADMIN = "DEMO_ADMIN",
+	USER = "USER",
+	DEMO_USER = "DEMO_USER",
+}
 export async function middleware(request: NextRequest, _next: NextFetchEvent) {
 	const { pathname } = request.nextUrl;
 
-	const allUserProtectedPaths = ["/cant-eats"];
+	const allUserProtectedPaths = ["/cant-eats", "/likes"];
 	const allAdminProtectedPaths = ["/recipes/edit/"];
 
 	const matchesAllusersProtectedPath = allUserProtectedPaths.some((path) =>
@@ -23,15 +28,22 @@ export async function middleware(request: NextRequest, _next: NextFetchEvent) {
 			return NextResponse.redirect(url);
 		}
 
-		if (matchesAdminProtectedPath && token.role !== "ADMIN") {
+		if (
+			matchesAdminProtectedPath &&
+			!(token.role === Role.ADMIN || token.role === Role.DEMO_ADMIN)
+		) {
 			const url = new URL(`/403`, request.url);
 			return NextResponse.rewrite(url);
 		}
 
 		if (
 			matchesAllusersProtectedPath &&
-			token.role !== "ADMIN" &&
-			token.role !== "USER"
+			!(
+				token.role === Role.ADMIN ||
+				token.role === Role.USER ||
+				token.role === Role.DEMO_ADMIN ||
+				token.role === Role.DEMO_USER
+			)
 		) {
 			const url = new URL(`/403`, request.url);
 			return NextResponse.rewrite(url);

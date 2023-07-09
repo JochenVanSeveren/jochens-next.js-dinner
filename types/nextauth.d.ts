@@ -3,14 +3,17 @@ import { Prisma } from "@prisma/client";
 import { User as PrismaUser } from "@prisma/client";
 import { DefaultSession, DefaultUser } from "next-auth";
 
+// BUG: importing Role into other files does not work
 // Define a role enum
 export enum Role {
-	user = "USER",
-	admin = "ADMIN",
+	ADMIN = "ADMIN",
+	DEMO_ADMIN = "DEMO_ADMIN",
+	USER = "USER",
+	DEMO_USER = "DEMO_USER",
 }
 // common interface for JWT and Session
 interface IUser extends DefaultUser, PrismaUser {
-	role?: Role;
+	role?: Role | undefined;
 }
 declare module "next-auth" {
 	interface User extends IUser {}
