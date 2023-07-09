@@ -1,4 +1,4 @@
-import AuthCheck from "@/components/AuthCheck";
+import AuthCheck from "@/components/auth/AuthCheck";
 import { prisma } from "@/lib/prisma";
 import { Like } from "@prisma/client";
 import LikeCard from "./LikeCard";

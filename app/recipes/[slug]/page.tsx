@@ -3,7 +3,7 @@ import { Recipe } from "@prisma/client";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CldImage from "@/components/elements/CldImage";
-import AuthCheck from "@/components/AuthCheck";
+import AuthCheck from "@/components/auth/AuthCheck";
 
 interface Props {
 	params: { slug: string };

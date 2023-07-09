@@ -1,5 +1,8 @@
+import AuthCheck from "@/components/auth/AuthCheck";
 import { prisma } from "@/lib/prisma";
 import { CantEat } from "@prisma/client";
+import CantEatCard from "./CantEatCard";
+import CantEatForm from "./CantEatForm";
 
 export default async function CantEats() {
 	const cantEats: CantEat[] = await prisma.cantEat.findMany();
@@ -9,9 +12,13 @@ export default async function CantEats() {
 			<h1>Cant-eats</h1>
 			<div>
 				{cantEats.map((cantEat) => (
-					<div key={cantEat.id}>{cantEat.name}</div>
+					<CantEatCard key={cantEat.id} cantEat={cantEat}></CantEatCard>
 				))}
 			</div>
+
+			<AuthCheck permittedRoles={["ADMIN"]}>
+				<CantEatForm cantEat={null}></CantEatForm>{" "}
+			</AuthCheck>
 		</div>
 	);
 }

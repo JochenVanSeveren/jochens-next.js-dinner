@@ -3,20 +3,20 @@
 import AuthCheck from "@/components/auth/AuthCheck";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Like } from "@prisma/client";
+import { CantEat } from "@prisma/client";
 import { useState } from "react";
-import LikeForm from "./LikeForm";
-import { handleLikeDelete } from "../actions";
+import CantEatForm from "./CantEatForm";
+import { handleCantEatDelete } from "../actions";
 
-interface LikeCardProps {
-	like: Like;
+interface CantEatCardProps {
+	cantEat: CantEat;
 }
 
-export default function LikeCard({ like }: LikeCardProps) {
+export default function CantEatCard({ cantEat }: CantEatCardProps) {
 	const [isEditing, setIsEditing] = useState(false);
 
 	async function handleDelete(id: string) {
-		await handleLikeDelete(id);
+		await handleCantEatDelete(id);
 	}
 
 	return (
@@ -24,11 +24,13 @@ export default function LikeCard({ like }: LikeCardProps) {
 			{isEditing ? (
 				<>
 					{" "}
-					<LikeForm like={like} setIsEditing={setIsEditing}></LikeForm>
+					<CantEatForm
+						cantEat={cantEat}
+						setIsEditing={setIsEditing}></CantEatForm>
 				</>
 			) : (
 				<div>
-					{like.name}{" "}
+					{cantEat.name}{" "}
 					<AuthCheck permittedRoles={["ADMIN"]}>
 						<button onClick={() => setIsEditing(true)}>
 							<FontAwesomeIcon icon={faEdit} />
@@ -36,7 +38,7 @@ export default function LikeCard({ like }: LikeCardProps) {
 						<button>
 							<FontAwesomeIcon
 								icon={faTrash}
-								onClick={() => handleDelete(like.id)}
+								onClick={() => handleDelete(cantEat.id)}
 							/>
 						</button>
 					</AuthCheck>

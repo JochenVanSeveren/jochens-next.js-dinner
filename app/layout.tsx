@@ -1,7 +1,7 @@
 import NavMenu from "./NavMenu";
 import "@/styles/globals.css";
 import { Roboto_Flex } from "next/font/google";
-import AuthProvider from "../components/AuthProvider";
+import AuthProvider from "../components/auth/AuthProvider";
 import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {

@@ -5,7 +5,11 @@ const cloudinary = require("cloudinary").v2;
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { cookies, headers } from "next/headers";
 import { NextAuthOptions, getServerSession } from "next-auth";
-import { RecipeEntrySchema, LikeEntrySchema } from "@/lib/validationSchema";
+import {
+	RecipeEntrySchema,
+	LikeEntrySchema,
+	CantEatEntrySchema,
+} from "@/lib/validationSchema";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { Prisma } from "@prisma/client";
@@ -244,4 +248,75 @@ export async function handleLikeDelete(id: string) {
 	});
 
 	revalidatePath(`/likes`);
+}
+
+export async function handleCantEatSubmit(id: string | null, name: string) {
+	// get author
+	const session = await getServerActionSession(authOptions);
+	const authorId = session?.user?.id;
+
+	// validate
+	const parsed = CantEatEntrySchema.safeParse({
+		name,
+	});
+
+	if (!parsed.success) {
+		return { error: parsed.error.format() };
+	}
+	try {
+		if (id) {
+			await prisma.cantEat.update({
+				where: { id },
+				data: {
+					name,
+				},
+			});
+		} else {
+			await prisma.cantEat.create({
+				data: {
+					name,
+					author: {
+						connect: {
+							id: authorId,
+						},
+					},
+				},
+			});
+		}
+	} catch (error: unknown) {
+		if (error instanceof Error) {
+			const prismaError = error as Prisma.PrismaClientKnownRequestError;
+			if (prismaError.code === "P2002") {
+				// Handle the error here. This error code indicates a unique constraint violation, which
+				// would happen if a new record is being created with a `name` value that already exists
+				// in the database.
+				return {
+					error: {
+						_errors: [],
+						name: {
+							_errors: ["A record with this name already exists."],
+						},
+					},
+				};
+			}
+		}
+		// If the error isn't a P2002, re-throw it
+		throw error;
+	}
+
+	revalidatePath(`/cant-eats`);
+}
+
+export async function handleCantEatDelete(id: string) {
+	if (!id) {
+		throw new Error("No canteat id provided");
+	}
+
+	await prisma.cantEat.delete({
+		where: {
+			id,
+		},
+	});
+
+	revalidatePath(`/cant-eats`);
 }

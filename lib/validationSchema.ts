@@ -25,3 +25,11 @@ export const LikeEntrySchema = z.object({
 });
 
 export type LikeFormattedErrors = z.inferFormattedError<typeof LikeEntrySchema>;
+
+export const CantEatEntrySchema = z.object({
+	name: z.string().nonempty({ message: "Name is required" }),
+});
+
+export type CantEatFormattedErrors = z.inferFormattedError<
+	typeof CantEatEntrySchema
+>;
