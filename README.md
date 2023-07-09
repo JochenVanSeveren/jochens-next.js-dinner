@@ -23,6 +23,7 @@ DATABASE_URL=
 SHADOW_DATABASE_URL=
 
 INVITED_USER_SECRET=
+REAL_ADMIN_EMAIL=
 ```
 
 First, run the development server:
@@ -43,6 +44,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Due to the private nature of the data, the data is not included in this repository.
 The project makes use of several JSON data files when seeding the database, each of which needs to be formatted in a specific way. The expected format for each file is detailed below:
+
+Mind that when using a real github account and user, seed automatically sets `authorId`
 
 ### canteats.json
 
