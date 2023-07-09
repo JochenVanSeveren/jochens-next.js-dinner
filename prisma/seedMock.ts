@@ -16,31 +16,41 @@ async function main() {
 
 	console.log(`Starting to seed...`);
 
+	const author = await prisma.user.findUnique({
+		where: {
+			email: process.env.REAL_ADMIN_EMAIL,
+		},
+	});
+
+	if (!author) {
+		throw new Error("Author not found");
+	}
+
+	const authorId = author.id;
+
 	for (const recipe of recipes) {
-		await prisma.recipe.create({ data: recipe });
+		await prisma.recipe.create({
+			data: {
+				...recipe,
+				authorId,
+			},
+		});
 	}
 
 	for (const cantEat of cantEats) {
-		await prisma.cantEat.create({ data: cantEat });
+		await prisma.cantEat.create({
+			data: {
+				...cantEat,
+				authorId,
+			},
+		});
 	}
 
 	for (const like of likes) {
-		await prisma.like.create({ data: like });
-	}
-
-	if (
-		await prisma.user.findUnique({
-			where: {
-				id: "cljrnww7z0000q56owtuwiy09",
-			},
-		})
-	) {
-		await prisma.user.update({
-			where: {
-				id: "cljrnww7z0000q56owtuwiy09",
-			},
+		await prisma.like.create({
 			data: {
-				role: "ADMIN",
+				...like,
+				authorId,
 			},
 		});
 	}
