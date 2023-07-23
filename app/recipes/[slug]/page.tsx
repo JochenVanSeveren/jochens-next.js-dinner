@@ -22,41 +22,61 @@ export default async function RecipePage({ params }: Props) {
 		recipe ?? {};
 
 	return (
-		<div>
-			<h1>Recipe: {title}</h1>
+		<div className="space-y-8">
+			<h1 className="text-3xl mb-5 text-buff font-bold">Recipe: {title}</h1>
 			<CldImage
 				src={image ?? ""}
 				alt={title}
-				width={500} // specify your desired width
-				height={300} // and height
+				width={500}
+				height={300}
+				className="rounded-lg object-cover"
 			/>
-			<h2>Ingredients</h2>
-			<ul>
-				{ingredients.map((ingredient) => (
-					<li key={ingredient}>{ingredient}</li>
-				))}
-			</ul>
-			<h2>Optional Ingredients</h2>
-			<ul>
-				{optionalIngredients.map((ingredient) => (
-					<li key={ingredient}>{ingredient}</li>
-				))}
-			</ul>
-			<h2>Herbs</h2>
-			<ul>
-				{herbs.map((herb) => (
-					<li key={herb}>{herb}</li>
-				))}
-			</ul>
-			<h2>Steps</h2>
-			<ol className="list-inside list-decimal">
+			<div className="space-y-5">
+				<div>
+					<h2 className="text-2xl font-semibold space-x-1">Ingredients</h2>
+					<div className="flex flex-wrap justify-start">
+						{ingredients.map((ingredient) => (
+							<div key={ingredient} className="bg-buff p-2 rounded shadow-md">
+								{ingredient}
+							</div>
+						))}
+					</div>
+				</div>
+				{optionalIngredients.length > 0 && (
+					<div>
+						<h2 className="text-2xl font-semibold space-x-1">
+							Optional Ingredients
+						</h2>
+						<div className="flex flex-wrap justify-start">
+							{optionalIngredients.map((ingredient) => (
+								<div key={ingredient} className="bg-buff p-2 rounded shadow-md">
+									{ingredient}
+								</div>
+							))}
+						</div>
+					</div>
+				)}
+				<div>
+					<h2 className="text-2xl font-semibold space-x-1">Herbs</h2>
+					<div className="flex flex-wrap justify-start">
+						{herbs.map((herb) => (
+							<div key={herb} className="bg-buff p-2 rounded shadow-md">
+								{herb}
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+			<h2 className="text-2xl font-semibold">Steps</h2>
+			<ol className="list-decimal pl-5 space-y-2">
 				{steps.map((step) => (
-					<li key={step}>{step}</li>
+					<li key={step} className="text-lg">
+						{step}
+					</li>
 				))}
-			</ol>{" "}
+			</ol>
 			<AuthCheck permittedRoles={["ADMIN"]}>
 				<button>
-					{" "}
 					<Link href={`/recipes/edit/${recipe.slug}`}>Edit</Link>
 				</button>
 			</AuthCheck>

@@ -7,10 +7,12 @@ export function AuthButton() {
 	const { data: session, status } = useSession();
 
 	if (status === "loading") {
-		return <>...</>;
+		return (
+			<button className="h-6 flex items-center justify-center">
+				<span className="loading loading-spinner w-4 h-4"></span>
+			</button>
+		);
 	}
-
-	//TODO: add skeleton loader
 
 	if (status === "authenticated") {
 		return (
@@ -22,7 +24,7 @@ export function AuthButton() {
 	}
 
 	return (
-		<button onClick={() => signIn()}>
+		<button className="h-6" onClick={() => signIn()}>
 			<CiLogin className="sm:hidden" />
 			<span className="hidden sm:block">Sign in</span>
 		</button>
@@ -31,7 +33,7 @@ export function AuthButton() {
 
 function SignOutButton() {
 	return (
-		<button onClick={() => signOut()}>
+		<button className="h-6" onClick={() => signOut()}>
 			<CiLogout className="sm:hidden" />
 			<span className="hidden sm:block">Sign out</span>
 		</button>

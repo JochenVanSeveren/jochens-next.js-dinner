@@ -11,13 +11,14 @@ export default function RecipeCard({ recipe }: Props) {
 	return (
 		<div>
 			<Link href={`/recipes/${slug}`}>
-				<h3>{title}</h3>
+				<h3 className="text-center">{title}</h3>
 				{image && (
 					<CldImage
 						src={image}
 						alt={title}
 						width={500} // specify your desired width
 						height={300} // and height
+						className="rounded-lg mb-2"
 					/>
 				)}
 			</Link>

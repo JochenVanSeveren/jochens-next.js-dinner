@@ -9,11 +9,14 @@ export default async function Recipes() {
 	const recipes: Recipe[] = await prisma.recipe.findMany();
 
 	return (
-		<div>
-			<h1>Recipes</h1>
+		<div className="mb-4">
 			<AuthCheck permittedRoles={["ADMIN"]}>
-				<Link href={"/recipes/edit/new"}>NEW</Link>
+				<Link href={"/recipes/edit/new"} className="absolute right-4 text-sm">
+					<button>+</button>
+				</Link>
 			</AuthCheck>
+			<h1>Recipes</h1>
+
 			<div>
 				{recipes.map((recipe) => {
 					return <RecipeCard key={recipe.slug} recipe={recipe} />;

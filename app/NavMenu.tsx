@@ -10,7 +10,7 @@ import AuthCheck from "@/components/auth/AuthCheck";
 export default function NavMenu() {
 	return (
 		<nav className={styles.nav}>
-			<button>
+			<button className="h-6">
 				<Link href={"/"}>
 					<Image
 						src="/logo2.svg" // Route of the image file

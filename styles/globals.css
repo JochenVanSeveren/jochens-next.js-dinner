@@ -27,17 +27,9 @@ html {
 	@apply text-xl m-4;
 }
 
-/* @media (prefers-color-scheme: dark) {
-	:root {
-		--foreground-rgb: 255, 255, 255;
-		--background-start-rgb: 0, 0, 0;
-		--background-end-rgb: 0, 0, 0;
-	}
-} */
-
 body {
-	@apply bg-buff-100;
 	height: calc(100svh - 2rem);
+	@apply bg-buff-100 pb-4;
 }
 
 label {

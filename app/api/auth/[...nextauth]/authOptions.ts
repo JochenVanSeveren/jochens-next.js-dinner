@@ -37,7 +37,7 @@ export const authOptions: NextAuthOptions = {
 			},
 		}),
 		CredentialsProvider({
-			name: "invited user password",
+			name: "wachtwoord",
 			id: "USER_CREDENTIALS",
 			credentials: {
 				password: { label: "Password", type: "password" },
