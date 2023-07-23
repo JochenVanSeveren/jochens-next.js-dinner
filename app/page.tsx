@@ -2,7 +2,9 @@ import Link from "next/link";
 import { PiCookingPotBold } from "react-icons/pi";
 import { GiPoisonBottle } from "react-icons/gi";
 import { BiLike } from "react-icons/bi";
+import AuthCheck from "@/components/auth/AuthCheck";
 export const dynamic = "force-static"; // not necessary, just for demonstration
+import { HiLockClosed } from "react-icons/hi";
 
 export default function Home() {
 	return (
@@ -19,23 +21,31 @@ export default function Home() {
 				) krijg ik vaak volgende vragen
 			</h3>
 			<ul className="flex flex-col space-y-8">
-				<li className="flex items-center space-x-2">
+				<li>
 					<Link href={"/cant-eats"} className="flex items-center space-x-2">
 						<button>
-							<GiPoisonBottle />
+							<AuthCheck
+								permittedRoles={["USER", "ADMIN", "DEMO_ADMIN", "DEMO_USER"]}
+								showLockIcon={true}>
+								<GiPoisonBottle />
+							</AuthCheck>
 						</button>
 						<span>Wat mag je niet eten?</span>
 					</Link>
 				</li>
-				<li className="flex items-center space-x-2">
+				<li>
 					<Link href={"/likes"} className="flex items-center space-x-2">
 						<button>
-							<BiLike />
-						</button>
+							<AuthCheck
+								permittedRoles={["USER", "ADMIN", "DEMO_ADMIN", "DEMO_USER"]}
+								showLockIcon={true}>
+								<BiLike />
+							</AuthCheck>
+						</button>{" "}
 						<span>Wat mag je dan wel eten?</span>
 					</Link>
 				</li>
-				<li className="flex items-center space-x-2">
+				<li>
 					<Link href={"/recipes"} className="flex items-center space-x-2">
 						<button>
 							<PiCookingPotBold />
@@ -44,6 +54,10 @@ export default function Home() {
 					</Link>
 				</li>
 			</ul>
+			<footer className="fixed bottom-2 flex items-center space-x-2">
+				<HiLockClosed />
+				<p className="italic text-xs"> Enkel toegangelijk met wachtwoord</p>
+			</footer>
 		</div>
 	);
 }

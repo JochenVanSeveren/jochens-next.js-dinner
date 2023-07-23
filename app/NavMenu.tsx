@@ -5,6 +5,7 @@ import { AuthButton } from "@/components/auth/AuthButtons";
 import { PiCookingPotBold } from "react-icons/pi";
 import { GiPoisonBottle } from "react-icons/gi";
 import { BiLike } from "react-icons/bi";
+import AuthCheck from "@/components/auth/AuthCheck";
 
 export default function NavMenu() {
 	return (
@@ -22,14 +23,22 @@ export default function NavMenu() {
 			<ul className={styles.links}>
 				<li>
 					<Link href={"/cant-eats"}>
-						<GiPoisonBottle className="sm:hidden" />
-						<span className="hidden sm:block">Cant-eats</span>
+						<AuthCheck
+							permittedRoles={["USER", "ADMIN", "DEMO_ADMIN", "DEMO_USER"]}
+							showLockIcon={true}>
+							<GiPoisonBottle className="sm:hidden" />
+							<span className="hidden sm:block">Cant-eats</span>
+						</AuthCheck>
 					</Link>
 				</li>
 				<li>
 					<Link href={"/likes"}>
-						<BiLike className="sm:hidden" />
-						<span className="hidden sm:block">Likes</span>
+						<AuthCheck
+							permittedRoles={["USER", "ADMIN", "DEMO_ADMIN", "DEMO_USER"]}
+							showLockIcon={true}>
+							<BiLike className="sm:hidden" />
+							<span className="hidden sm:block">Likes</span>
+						</AuthCheck>
 					</Link>
 				</li>
 				<li>
