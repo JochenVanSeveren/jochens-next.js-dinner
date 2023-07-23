@@ -1,6 +1,7 @@
 "use client";
 
 import { useSession, signIn, signOut } from "next-auth/react";
+import { CiLogin, CiLogout } from "react-icons/ci";
 
 export function AuthButton() {
 	const { data: session, status } = useSession();
@@ -13,15 +14,26 @@ export function AuthButton() {
 
 	if (status === "authenticated") {
 		return (
-			<div>
-				Hello {session?.user?.name} <SignOutButton />
+			<div className="flex">
+				<span className="hidden sm:block">Hello {session?.user?.name} </span>
+				<SignOutButton />
 			</div>
 		);
 	}
 
-	return <button onClick={() => signIn()}>Sign in</button>;
+	return (
+		<button onClick={() => signIn()}>
+			<CiLogin className="sm:hidden" />
+			<span className="hidden sm:block">Sign in</span>
+		</button>
+	);
 }
 
 function SignOutButton() {
-	return <button onClick={() => signOut()}>Sign out</button>;
+	return (
+		<button onClick={() => signOut()}>
+			<CiLogout className="sm:hidden" />
+			<span className="hidden sm:block">Sign out</span>
+		</button>
+	);
 }

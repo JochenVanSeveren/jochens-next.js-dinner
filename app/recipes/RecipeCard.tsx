@@ -11,7 +11,7 @@ export default function RecipeCard({ recipe }: Props) {
 	return (
 		<div>
 			<Link href={`/recipes/${slug}`}>
-				<h1>{title}</h1>
+				<h3>{title}</h3>
 				{image && (
 					<CldImage
 						src={image}

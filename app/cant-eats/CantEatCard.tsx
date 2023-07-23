@@ -29,8 +29,8 @@ export default function CantEatCard({ cantEat }: CantEatCardProps) {
 						setIsEditing={setIsEditing}></CantEatForm>
 				</>
 			) : (
-				<div>
-					{cantEat.name}{" "}
+				<div className="text-center">
+					<span> {cantEat.name} </span>
 					<AuthCheck permittedRoles={["ADMIN"]}>
 						<button onClick={() => setIsEditing(true)}>
 							<FontAwesomeIcon icon={faEdit} />

@@ -1,21 +1,10 @@
 .nav {
-	display: flex;
-	height: 70px;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0 1rem;
-	background-color: #f2d98d;
-	border-radius: 0 0 20px 20px;
+	@apply p-2 flex bg-buff-200 border-l-2 border-b-2 border-buff-500 rounded-lg items-center justify-between;
 }
 
 .links {
-	list-style: none;
-	display: flex;
-	margin-right: 1rem;
+	@apply flex mx-4 justify-between items-center w-full sm:w-auto;
 }
 .links li {
-	height: 70px;
-	display: flex;
-	align-items: center;
-	padding: 0.25rem;
+	@apply flex items-center py-1  mx-2;
 }

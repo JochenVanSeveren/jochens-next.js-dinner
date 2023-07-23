@@ -1,6 +1,5 @@
 "use client";
 
-import { log } from "console";
 import {
 	getCsrfToken,
 	getProviders,
@@ -21,8 +20,6 @@ export default async function SignIn() {
 
 	const csrfToken = await getCsrfToken();
 	const providers = await getProviders();
-
-	console.log(providers);
 
 	return (
 		<>

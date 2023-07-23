@@ -4,7 +4,6 @@ import { userService } from "@/services/UserService";
 import GithubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
-import { log } from "console";
 if (!process.env.NEXTAUTH_SECRET) {
 	throw new Error("Please provide process.env.NEXTAUTH_SECRET");
 }
@@ -23,7 +22,6 @@ export const authOptions: NextAuthOptions = {
 			clientId: process.env.GITHUB_ID!,
 			clientSecret: process.env.GITHUB_SECRET!,
 			profile(profile) {
-				log("profileID", profile.id.toString());
 				return {
 					role:
 						profile.email === process.env.REAL_ADMIN_EMAIL
@@ -57,32 +55,32 @@ export const authOptions: NextAuthOptions = {
 				}
 			},
 		}),
-		CredentialsProvider({
-			name: "demo user",
-			id: "DEMO_USER_CREDENTIALS",
-			credentials: {},
-			async authorize(credentials) {
-				try {
-					const user = await userService.signInDemoCredentials();
-					return user;
-				} catch (error) {
-					return null;
-				}
-			},
-		}),
-		CredentialsProvider({
-			name: "demo admin",
-			id: "DEMO_ADMIN_CREDENTIALS",
-			credentials: {},
-			async authorize(credentials) {
-				try {
-					const user = await userService.signInDemoAdminCredentials();
-					return user;
-				} catch (error) {
-					return null;
-				}
-			},
-		}),
+		// CredentialsProvider({
+		// 	name: "demo user",
+		// 	id: "DEMO_USER_CREDENTIALS",
+		// 	credentials: {},
+		// 	async authorize(credentials) {
+		// 		try {
+		// 			const user = await userService.signInDemoCredentials();
+		// 			return user;
+		// 		} catch (error) {
+		// 			return null;
+		// 		}
+		// 	},
+		// }),
+		// CredentialsProvider({
+		// 	name: "demo admin",
+		// 	id: "DEMO_ADMIN_CREDENTIALS",
+		// 	credentials: {},
+		// 	async authorize(credentials) {
+		// 		try {
+		// 			const user = await userService.signInDemoAdminCredentials();
+		// 			return user;
+		// 		} catch (error) {
+		// 			return null;
+		// 		}
+		// 	},
+		// }),
 	],
 	callbacks: {
 		async jwt({ token, user }) {

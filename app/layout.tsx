@@ -22,7 +22,7 @@ export default function RootLayout({
 			<html lang="en" suppressHydrationWarning={true}>
 				<body className={roboto.className}>
 					<NavMenu />
-					{children}
+					<main className="mt-4"> {children}</main>
 				</body>
 				<Analytics />
 			</html>

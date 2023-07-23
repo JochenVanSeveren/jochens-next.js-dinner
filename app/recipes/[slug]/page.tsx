@@ -49,7 +49,7 @@ export default async function RecipePage({ params }: Props) {
 				))}
 			</ul>
 			<h2>Steps</h2>
-			<ol>
+			<ol className="list-inside list-decimal">
 				{steps.map((step) => (
 					<li key={step}>{step}</li>
 				))}
