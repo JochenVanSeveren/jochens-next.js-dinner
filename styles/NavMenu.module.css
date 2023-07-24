@@ -1,5 +1,5 @@
 .nav {
-	@apply p-2 flex bg-buff-200 border-l-2 border-b-2 border-buff-500 rounded-lg items-center justify-between;
+	@apply p-2 flex bg-buff-200 border-r-2 border-b-2 border-buff-500 rounded-lg items-center justify-between;
 }
 
 .links {

@@ -29,12 +29,12 @@ export default async function RecipePage({ params }: Props) {
 				alt={title}
 				width={500}
 				height={300}
-				className="rounded-lg object-cover"
+				className="rounded-lg object-cover neumo"
 			/>
 			<div className="space-y-5">
 				<div>
 					<h2 className="text-2xl font-semibold space-x-1">Ingredients</h2>
-					<div className="flex flex-wrap justify-start">
+					<div className="flex flex-wrap justify-between">
 						{ingredients.map((ingredient) => (
 							<div key={ingredient} className="bg-buff p-2 rounded shadow-md">
 								{ingredient}
@@ -47,7 +47,7 @@ export default async function RecipePage({ params }: Props) {
 						<h2 className="text-2xl font-semibold space-x-1">
 							Optional Ingredients
 						</h2>
-						<div className="flex flex-wrap justify-start">
+						<div className="flex flex-wrap justify-between">
 							{optionalIngredients.map((ingredient) => (
 								<div key={ingredient} className="bg-buff p-2 rounded shadow-md">
 									{ingredient}
@@ -58,7 +58,7 @@ export default async function RecipePage({ params }: Props) {
 				)}
 				<div>
 					<h2 className="text-2xl font-semibold space-x-1">Herbs</h2>
-					<div className="flex flex-wrap justify-start">
+					<div className="flex flex-wrap justify-between">
 						{herbs.map((herb) => (
 							<div key={herb} className="bg-buff p-2 rounded shadow-md">
 								{herb}

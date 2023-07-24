@@ -18,7 +18,7 @@ export default function RecipeCard({ recipe }: Props) {
 						alt={title}
 						width={500} // specify your desired width
 						height={300} // and height
-						className="rounded-lg mb-2"
+						className="rounded-lg mb-2 neumo"
 					/>
 				)}
 			</Link>
