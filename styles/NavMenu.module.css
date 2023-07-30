@@ -2,9 +2,13 @@
 	@apply p-2 flex bg-buff-200 border-r-2 border-b-2 border-buff-500 rounded-lg items-center justify-between;
 }
 
+.nav button {
+	@apply h-auto;
+}
+
 .links {
 	@apply flex mx-4 justify-between items-center w-full sm:w-auto;
 }
 .links li {
-	@apply flex items-center py-1  mx-2;
+	@apply flex items-center py-1 mx-2 sm:mx-4;
 }

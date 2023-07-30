@@ -8,19 +8,23 @@ import { HiLockClosed } from "react-icons/hi";
 
 export default function Home() {
 	return (
-		<div className="flex flex-col items-center justify-center">
-			<h3 className="text-left mb-8 mt-4">
+		<div className="md:flex md:space-x-4 md:mx-4 md:mt-8 items-start">
+			<h3 className="text-left mb-8 mt-4 md:max-w-xl xl:max-w-2xl md:flex-1">
 				Met mijn darmaandoening (
-				<a
-					className="text-buff-400 underline hover:text-buff-500"
-					href="https://www.gezondheidenwetenschap.be/richtlijnen/prikkelbaredarmsyndroom-pds"
-					target="_blank"
-					rel="noopener noreferrer">
-					pbs
-				</a>
+				<AuthCheck
+					permittedRoles={["USER", "ADMIN", "DEMO_ADMIN", "DEMO_USER"]}
+					showLockIcon={true}>
+					<a
+						className="text-buff-400 underline hover:text-buff-500"
+						href="https://www.gezondheidenwetenschap.be/richtlijnen/prikkelbaredarmsyndroom-pds"
+						target="_blank"
+						rel="noopener noreferrer">
+						pbs
+					</a>
+				</AuthCheck>
 				) krijg ik vaak volgende vragen
 			</h3>
-			<ul className="flex flex-col space-y-8">
+			<ul className="space-y-8 md:flex-1">
 				<li>
 					<Link href={"/cant-eats"} className="flex items-center space-x-2">
 						<button>
@@ -34,7 +38,9 @@ export default function Home() {
 					</Link>
 				</li>
 				<li>
-					<Link href={"/likes"} className="flex items-center space-x-2">
+					<Link
+						href={"/likes"}
+						className="flex items-center space-x-2 mr-auto ml-auto">
 						<button>
 							<AuthCheck
 								permittedRoles={["USER", "ADMIN", "DEMO_ADMIN", "DEMO_USER"]}

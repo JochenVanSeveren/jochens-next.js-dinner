@@ -16,9 +16,10 @@ export default function RecipeCard({ recipe }: Props) {
 					<CldImage
 						src={image}
 						alt={title}
-						width={500} // specify your desired width
-						height={300} // and height
-						className="rounded-lg mb-2 neumo"
+						width={600}
+						height={600}
+						// sizes="(max-width: 480px) 100vw, 50vw"
+						className="rounded-lg mb-2 neumo ml-auto mr-auto"
 					/>
 				)}
 			</Link>

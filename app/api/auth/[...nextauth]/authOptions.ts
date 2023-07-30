@@ -48,7 +48,9 @@ export const authOptions: NextAuthOptions = {
 				}
 				const { password } = credentials;
 				try {
-					const user = await userService.signInCredentials(password);
+					const user = await userService.signInCredentials(
+						password.toLowerCase()
+					);
 					return user;
 				} catch (error) {
 					return null;

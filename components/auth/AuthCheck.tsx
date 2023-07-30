@@ -17,7 +17,7 @@ export default function AuthCheck({
 	if (status === "authenticated" && authorized(session, permittedRoles)) {
 		return <>{children}</>;
 	} else {
-		return showLockIcon ? <HiLockClosed /> : <></>;
+		return showLockIcon ? <HiLockClosed className="inline" /> : <></>;
 	}
 }
 

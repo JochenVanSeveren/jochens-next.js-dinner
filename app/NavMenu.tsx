@@ -21,34 +21,40 @@ export default function NavMenu() {
 				</Link>
 			</button>
 			<ul className={styles.links}>
-				<li>
+				<li className="flex items-center">
 					<Link href={"/cant-eats"}>
 						<AuthCheck
 							permittedRoles={["USER", "ADMIN", "DEMO_ADMIN", "DEMO_USER"]}
 							showLockIcon={true}>
-							<GiPoisonBottle className="sm:hidden" />
-							<span className="hidden sm:block">Cant-eats</span>
+							<div className="flex items-center space-x-2">
+								<GiPoisonBottle />
+								<span className="hidden sm:block">Cant-eats</span>
+							</div>
 						</AuthCheck>
 					</Link>
 				</li>
-				<li>
+				<li className="flex items-center">
 					<Link href={"/likes"}>
 						<AuthCheck
 							permittedRoles={["USER", "ADMIN", "DEMO_ADMIN", "DEMO_USER"]}
 							showLockIcon={true}>
-							<BiLike className="sm:hidden" />
-							<span className="hidden sm:block">Likes</span>
+							<div className="flex items-center space-x-2">
+								<BiLike />
+								<span className="hidden sm:block">Likes</span>
+							</div>
 						</AuthCheck>
 					</Link>
 				</li>
-				<li>
+				<li className="flex items-center">
 					<Link href={"/recipes"}>
-						{" "}
-						<PiCookingPotBold className="sm:hidden" />
-						<span className="hidden sm:block">Recipes</span>
+						<div className="flex items-center space-x-2">
+							<PiCookingPotBold />
+							<span className="hidden sm:block">Recipes</span>
+						</div>
 					</Link>
 				</li>
 			</ul>
+
 			<div className="mr-0">
 				<AuthButton />
 			</div>

@@ -23,18 +23,19 @@ export default async function RecipePage({ params }: Props) {
 
 	return (
 		<div className="space-y-8">
-			<h1 className="text-3xl mb-5 text-buff font-bold">Recipe: {title}</h1>
+			<h1 className="text-3xl mb-5 text-buff font-bold">{title}</h1>
 			<CldImage
 				src={image ?? ""}
 				alt={title}
-				width={500}
-				height={300}
-				className="rounded-lg object-cover neumo"
+				width={600}
+				height={600}
+				// sizes="(max-width: 480px) 100vw, 50vw"
+				className="rounded-lg object-cover neumo ml-auto mr-auto"
 			/>
 			<div className="space-y-5">
 				<div>
 					<h2 className="text-2xl font-semibold space-x-1">Ingredients</h2>
-					<div className="flex flex-wrap justify-between">
+					<div className="flex flex-wrap">
 						{ingredients.map((ingredient) => (
 							<div key={ingredient} className="bg-buff p-2 rounded shadow-md">
 								{ingredient}
@@ -47,7 +48,7 @@ export default async function RecipePage({ params }: Props) {
 						<h2 className="text-2xl font-semibold space-x-1">
 							Optional Ingredients
 						</h2>
-						<div className="flex flex-wrap justify-between">
+						<div className="flex flex-wrap">
 							{optionalIngredients.map((ingredient) => (
 								<div key={ingredient} className="bg-buff p-2 rounded shadow-md">
 									{ingredient}
@@ -58,7 +59,7 @@ export default async function RecipePage({ params }: Props) {
 				)}
 				<div>
 					<h2 className="text-2xl font-semibold space-x-1">Herbs</h2>
-					<div className="flex flex-wrap justify-between">
+					<div className="flex flex-wrap">
 						{herbs.map((herb) => (
 							<div key={herb} className="bg-buff p-2 rounded shadow-md">
 								{herb}

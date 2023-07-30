@@ -15,12 +15,7 @@ export function AuthButton() {
 	}
 
 	if (status === "authenticated") {
-		return (
-			<div className="flex">
-				<span className="hidden sm:block">Hello {session?.user?.name} </span>
-				<SignOutButton />
-			</div>
-		);
+		return <SignOutButton />;
 	}
 
 	return (
