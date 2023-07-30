@@ -38,3 +38,22 @@ label {
 .neumo {
 	box-shadow: -25px 25px 50px #d9cfb1, 25px -25px 50px #ffffe7;
 }
+
+.custom-ordered-list ul {
+	counter-reset: list-counter;
+}
+
+.custom-ordered-list li {
+	counter-increment: list-counter;
+	position: relative;
+}
+
+.custom-ordered-list li:before {
+	z-index: -1;
+	content: counter(list-counter);
+	position: absolute;
+	left: -1.5rem;
+	@apply text-buff-200;
+	font-weight: bold;
+	text-shadow: 0 0 1px #fff;
+}
