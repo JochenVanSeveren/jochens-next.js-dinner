@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import CldImage from "@/components/elements/CldImage";
 import AuthCheck from "@/components/auth/AuthCheck";
+import BreadCrumbs from "@/components/elements/BreadCrumbs";
 
 interface Props {
 	params: { slug: string };
@@ -23,6 +24,11 @@ export default async function RecipePage({ params }: Props) {
 
 	return (
 		<div className="space-y-8">
+			<BreadCrumbs
+				items={[
+					{ label: "Recipes", path: "/recipes" },
+					{ label: params.slug, path: `/recipes/${params.slug}` },
+				]}></BreadCrumbs>
 			<div className="flex flex-wrap justify-evenly space-x-4">
 				<div className="max-w-md">
 					<h1 className="text-3xl mb-5 text-buff font-bold">{title}</h1>
