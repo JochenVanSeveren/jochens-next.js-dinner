@@ -15,7 +15,7 @@ export type BreadcrumbsProps = {
 
 export default function BreadCrumbs({ items }: BreadcrumbsProps) {
 	return (
-		<div className="flex gap-2 items-start">
+		<div className="hidden sm:flex gap-2 items-start ">
 			{/* Home icon */}
 			<Link href="/">
 				<IoHomeOutline className="inline text-buff-500 hover:text-buff-400 hover:underline" />

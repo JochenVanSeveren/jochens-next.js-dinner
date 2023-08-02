@@ -19,7 +19,7 @@ export default async function Recipes() {
 			</AuthCheck>
 			<h1>Recipes</h1>
 
-			<div className="flex flex-wrap gap-4 space-x-4 justify-evenly">
+			<div className="flex flex-wrap gap-4 sm:space-x-4 justify-evenly">
 				{" "}
 				{recipes.map((recipe) => {
 					return <RecipeCard key={recipe.slug} recipe={recipe} />;
