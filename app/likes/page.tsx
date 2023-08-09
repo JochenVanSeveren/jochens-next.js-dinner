@@ -8,6 +8,12 @@ import BreadCrumbs from "@/components/elements/BreadCrumbs";
 export default async function Likes() {
 	const likes: Like[] = await prisma.like.findMany();
 
+	// const likes: Like[] = await new Promise((resolve, reject) => {
+	// 	setTimeout(() => {
+	// 		resolve(prisma.like.findMany());
+	// 	}, 2000);
+	// });
+
 	const groupedLikes: { [key: string]: Like[] } = likes.reduce(
 		(groups: { [key: string]: Like[] }, like) => {
 			if (!groups[like.category]) {

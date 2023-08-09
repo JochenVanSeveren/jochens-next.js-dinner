@@ -19,7 +19,7 @@ export default function RecipeCard({ recipe }: Props) {
 						width={600}
 						height={600}
 						// sizes="(max-width: 480px) 100vw, 50vw"
-						className="rounded-lg mb-2 neumo ml-auto mr-auto"
+						className="rounded-lg mb-2 ml-auto mr-auto"
 					/>
 				)}
 			</Link>

@@ -38,7 +38,7 @@ export default async function RecipePage({ params }: Props) {
 						width={600}
 						height={500}
 						// sizes="(max-width: 480px) 100vw, 50vw"
-						className="rounded-lg object-cover neumo ml-auto mr-auto"
+						className="rounded-lg object-cover ml-auto mr-auto"
 					/>
 				</div>
 				<div className="max-w-md">

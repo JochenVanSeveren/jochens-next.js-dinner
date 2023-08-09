@@ -35,10 +35,6 @@ label {
 	user-select: none;
 }
 
-.neumo {
-	box-shadow: -25px 25px 50px #d9cfb1, 25px -25px 50px #ffffe7;
-}
-
 .custom-ordered-list ul {
 	counter-reset: list-counter;
 }

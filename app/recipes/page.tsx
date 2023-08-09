@@ -8,6 +8,12 @@ import BreadCrumbs from "@/components/elements/BreadCrumbs";
 export default async function Recipes() {
 	const recipes: Recipe[] = await prisma.recipe.findMany();
 
+	// const recipes: Recipe[] = await new Promise((resolve, reject) => {
+	// 	setTimeout(() => {
+	// 		resolve(prisma.recipe.findMany());
+	// 	}, 10000);
+	// });
+
 	return (
 		<div className="mb-4">
 			<BreadCrumbs
