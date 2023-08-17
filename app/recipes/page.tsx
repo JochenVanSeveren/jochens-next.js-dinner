@@ -14,6 +14,8 @@ export default async function Recipes() {
 	// 	}, 10000);
 	// });
 
+	const midPoint = Math.ceil(recipes.length / 2);
+
 	return (
 		<div className="mb-4">
 			<BreadCrumbs
@@ -25,11 +27,18 @@ export default async function Recipes() {
 			</AuthCheck>
 			<h1>Recipes</h1>
 
-			<div className="flex flex-wrap gap-4 sm:space-x-4 justify-evenly">
-				{" "}
-				{recipes.map((recipe) => {
-					return <RecipeCard key={recipe.slug} recipe={recipe} />;
-				})}
+			<div className="grid md:grid-cols-2 gap-4">
+				<div className="flex flex-col gap-4">
+					{recipes.slice(0, midPoint).map((recipe) => (
+						<RecipeCard key={recipe.slug} recipe={recipe} />
+					))}
+				</div>
+
+				<div className="flex flex-col gap-4">
+					{recipes.slice(midPoint).map((recipe) => (
+						<RecipeCard key={recipe.slug} recipe={recipe} />
+					))}
+				</div>
 			</div>
 		</div>
 	);
