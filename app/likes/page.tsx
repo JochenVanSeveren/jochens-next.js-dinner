@@ -4,6 +4,7 @@ import { Like } from "@prisma/client";
 import LikeCard from "./LikeCard";
 import LikeForm from "./LikeForm";
 import BreadCrumbs from "@/components/elements/BreadCrumbs";
+import TransitionEffect from "@/components/elements/TransitionEffect";
 
 export default async function Likes() {
 	const likes: Like[] = await prisma.like.findMany();
@@ -27,6 +28,7 @@ export default async function Likes() {
 
 	return (
 		<div>
+			<TransitionEffect />
 			<BreadCrumbs items={[{ label: "Likes", path: "/likes" }]}></BreadCrumbs>
 			<h1>Likes</h1>
 

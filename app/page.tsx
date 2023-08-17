@@ -5,10 +5,12 @@ import { BiLike } from "react-icons/bi";
 import AuthCheck from "@/components/auth/AuthCheck";
 export const dynamic = "force-static"; // not necessary, just for demonstration
 import { HiLockClosed } from "react-icons/hi";
+import TransitionEffect from "@/components/elements/TransitionEffect";
 
 export default function Home() {
 	return (
 		<>
+			<TransitionEffect />
 			<div className="md:flex md:space-x-4 md:mx-4 md:mt-20 md-max-w-46 items-start">
 				<h3 className="text-left mb-8 mt-4 md:max-w-xl xl:max-w-2xl md:flex-1">
 					Met mijn darmaandoening (
