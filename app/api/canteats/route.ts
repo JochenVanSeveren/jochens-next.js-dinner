@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { NextRequest } from "next/dist/server/web/spec-extension/request";
 
 export async function GET() {
 	try {
@@ -16,7 +17,7 @@ export async function GET() {
 	}
 }
 
-export async function POST(request: { json: () => Promise<any> }) {
+export async function POST(request: NextRequest) {
 	try {
 		const data = await request.json();
 
