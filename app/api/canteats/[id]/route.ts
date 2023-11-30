@@ -1,12 +1,13 @@
 import { prisma } from "@/lib/prisma";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { NextApiRequest } from "next";
 
 export async function PUT(
-	request: { json: () => any },
+	request: NextApiRequest,
 	{ params }: { params: { id: string } }
 ) {
 	try {
-		const data = await request.json();
+		const data = await request.body;
 
 		// Validate data - adjust this according to your data requirements
 		if (!data.name) {
@@ -53,7 +54,7 @@ export async function PUT(
 }
 
 export async function DELETE(
-	request: any,
+	request: NextApiRequest,
 	{ params }: { params: { id: string } }
 ) {
 	try {
