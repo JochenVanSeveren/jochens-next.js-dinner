@@ -1,13 +1,13 @@
 import { prisma } from "@/lib/prisma";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { NextApiRequest } from "next";
+import { NextRequest } from "next/dist/server/web/spec-extension/request";
 
 export async function PUT(
-	request: NextApiRequest,
+	request: NextRequest,
 	{ params }: { params: { id: string } }
 ) {
 	try {
-		const data = await request.body;
+		const data = await request.json();
 		const updatedRecipe = await prisma.recipe.update({
 			where: { id: params.id },
 			data,
@@ -36,7 +36,7 @@ export async function PUT(
 }
 
 export async function DELETE(
-	request: NextApiRequest,
+	request: NextRequest,
 	{ params }: { params: { id: string } }
 ) {
 	try {
