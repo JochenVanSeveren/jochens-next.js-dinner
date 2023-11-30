@@ -9,6 +9,22 @@ enum Role {
 export async function middleware(request: NextRequest, _next: NextFetchEvent) {
 	const { pathname } = request.nextUrl;
 
+	if (pathname.startsWith("/api")) {
+		const { headers } = request;
+		const apiKey = headers.get("x-api-key");
+
+		if (apiKey !== process.env.MY_API_KEY) {
+			return new Response(JSON.stringify({ error: "Unauthorized" }), {
+				status: 401,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+		} else {
+			return NextResponse.next();
+		}
+	}
+
 	const allUserProtectedPaths = ["/cant-eats", "/likes"];
 	const allAdminProtectedPaths = ["/recipes/edit/"];
 
