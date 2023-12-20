@@ -9,7 +9,7 @@ enum Role {
 export async function middleware(request: NextRequest, _next: NextFetchEvent) {
 	const { pathname } = request.nextUrl;
 
-	if (pathname.startsWith("/api")) {
+	if (pathname.startsWith("/api") && !pathname.startsWith("/api/auth/")) {
 		const { headers } = request;
 		const apiKey = headers.get("x-api-key");
 
