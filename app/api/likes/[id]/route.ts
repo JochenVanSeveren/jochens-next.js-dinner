@@ -7,7 +7,7 @@ export async function PUT(
 	{ params }: { params: { id: string } }
 ) {
 	try {
-		const data = await request.json();
+		const { id, ...data } = await request.json();
 		const updatedLike = await prisma.like.update({
 			where: { id: params.id },
 			data,

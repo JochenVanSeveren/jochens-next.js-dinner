@@ -7,7 +7,7 @@ export async function PUT(
 	{ params }: { params: { id: string } }
 ) {
 	try {
-		const data = await request.json();
+		const { id, ...data } = await request.json();
 
 		// Validate data - adjust this according to your data requirements
 		if (!data.name) {
