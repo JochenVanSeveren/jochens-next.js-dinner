@@ -2,11 +2,11 @@
 
 import { Recipe as RecipeType } from "@prisma/client";
 import { useEffect, useState } from "react";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import urlSlug from "url-slug";
 import { handleRecipeDelete, handleRecipeSubmit } from "@/app/actions";
 import CldImage from "@/components/elements/CldImage";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useParams, useRouter } from "next/navigation";

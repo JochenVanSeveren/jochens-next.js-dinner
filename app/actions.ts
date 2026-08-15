@@ -149,13 +149,11 @@ async function uploadImageToCloudinary(formdata: FormData) {
 	return data.public_id;
 }
 
-export const getServerActionSession = (authConfig: NextAuthOptions) => {
+export const getServerActionSession = async (authConfig: NextAuthOptions) => {
 	const req = {
-		headers: Object.fromEntries(headers()),
+		headers: Object.fromEntries(await headers()),
 		cookies: Object.fromEntries(
-			cookies()
-				.getAll()
-				.map((c) => [c.name, c.value])
+			(await cookies()).getAll().map((c) => [c.name, c.value])
 		),
 	} as any;
 	const res = {

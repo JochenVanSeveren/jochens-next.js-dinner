@@ -4,17 +4,18 @@ import { notFound } from "next/navigation";
 import { Recipe } from "@prisma/client";
 
 interface Props {
-	params: { slug: string };
+	params: Promise<{ slug: string }>;
 }
 
-export default async function RecipeFormPage({ params }: Props) {
-	const recipe: Recipe | null = await prisma.recipe.findUnique({
+export default async function RecipeFormPage(props: Props) {
+    const params = await props.params;
+    const recipe: Recipe | null = await prisma.recipe.findUnique({
 		where: { slug: params.slug },
 	});
 
-	if (!recipe && params.slug !== "new") {
+    if (!recipe && params.slug !== "new") {
 		notFound();
 	}
 
-	return <RecipeForm recipe={recipe} />;
+    return <RecipeForm recipe={recipe} />;
 }

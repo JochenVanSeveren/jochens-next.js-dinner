@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	getCsrfToken,
 	getProviders,
@@ -8,9 +8,18 @@ import {
 	useSession,
 } from "next-auth/react";
 
-export default async function SignIn() {
+type Providers = Awaited<ReturnType<typeof getProviders>>;
+
+export default function SignIn() {
 	const [showPassword, setShowPassword] = useState(false);
-	const { data: session, status } = useSession();
+	const [csrfToken, setCsrfToken] = useState<string | undefined>(undefined);
+	const [providers, setProviders] = useState<Providers>(null);
+	const { status } = useSession();
+
+	useEffect(() => {
+		getCsrfToken().then(setCsrfToken);
+		getProviders().then(setProviders);
+	}, []);
 
 	const togglePassword = () => {
 		setShowPassword(!showPassword);
@@ -24,9 +33,6 @@ export default async function SignIn() {
 			</div>
 		);
 	}
-
-	const csrfToken = await getCsrfToken();
-	const providers = await getProviders();
 
 	return (
 		<div className="space-y-4 sm:max-w-sm ml-auto mr-auto">
