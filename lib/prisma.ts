@@ -9,7 +9,13 @@ if (!process.env.DATABASE_URL) {
 	throw new Error("Please provide process.env.DATABASE_URL");
 }
 
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const connectionString = process.env.DATABASE_URL;
+const isLocal = /@(localhost|127\.0\.0\.1)[:/]/.test(connectionString);
+
+const adapter = new PrismaPg({
+	connectionString,
+	...(isLocal ? {} : { ssl: { rejectUnauthorized: true } }),
+});
 
 export const prisma =
 	globalForPrisma.prisma ??
