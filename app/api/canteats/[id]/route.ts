@@ -1,12 +1,10 @@
 import { prisma } from "@/lib/prisma";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { Prisma } from "@prisma/client";
 import { NextRequest } from "next/dist/server/web/spec-extension/request";
 
-export async function PUT(
-	request: NextRequest,
-	{ params }: { params: { id: string } }
-) {
-	try {
+export async function PUT(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
+    try {
 		const { id, ...data } = await request.json();
 
 		// Validate data - adjust this according to your data requirements
@@ -39,7 +37,7 @@ export async function PUT(
 		let message = "An error occurred";
 
 		if (
-			error instanceof PrismaClientKnownRequestError &&
+			error instanceof Prisma.PrismaClientKnownRequestError &&
 			error.code === "P2025"
 		) {
 			status = 404;
@@ -53,11 +51,9 @@ export async function PUT(
 	}
 }
 
-export async function DELETE(
-	request: NextRequest,
-	{ params }: { params: { id: string } }
-) {
-	try {
+export async function DELETE(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
+    try {
 		const cantEat = await prisma.cantEat.delete({
 			where: { id: params.id },
 		});
@@ -70,7 +66,7 @@ export async function DELETE(
 		let message = "An error occurred";
 
 		if (
-			error instanceof PrismaClientKnownRequestError &&
+			error instanceof Prisma.PrismaClientKnownRequestError &&
 			error.code === "P2025"
 		) {
 			status = 404;

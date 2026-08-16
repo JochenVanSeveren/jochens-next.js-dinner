@@ -6,7 +6,7 @@ enum Role {
 	USER = "USER",
 	DEMO_USER = "DEMO_USER",
 }
-export async function middleware(request: NextRequest, _next: NextFetchEvent) {
+export async function proxy(request: NextRequest, _next: NextFetchEvent) {
 	const { pathname } = request.nextUrl;
 
 	if (pathname.startsWith("/api") && !pathname.startsWith("/api/auth/")) {

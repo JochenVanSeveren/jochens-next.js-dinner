@@ -6,7 +6,7 @@ import {
 } from "@/lib/validationSchema";
 import { CantEat } from "@prisma/client";
 import { useRef, useState } from "react";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { handleCantEatSubmit } from "../actions";
 
 interface CantEatFormProps {

@@ -7,22 +7,23 @@ import AuthCheck from "@/components/auth/AuthCheck";
 import BreadCrumbs from "@/components/elements/BreadCrumbs";
 
 interface Props {
-	params: { slug: string };
+	params: Promise<{ slug: string }>;
 }
 
-export default async function RecipePage({ params }: Props) {
-	const recipe: Recipe | null = await prisma.recipe.findUnique({
+export default async function RecipePage(props: Props) {
+    const params = await props.params;
+    const recipe: Recipe | null = await prisma.recipe.findUnique({
 		where: { slug: params.slug },
 	});
 
-	if (!recipe) {
+    if (!recipe) {
 		notFound();
 	}
 
-	const { title, ingredients, optionalIngredients, herbs, image, steps } =
+    const { title, ingredients, optionalIngredients, herbs, image, steps } =
 		recipe ?? {};
 
-	return (
+    return (
 		<div className="space-y-8">
 			<BreadCrumbs
 				items={[

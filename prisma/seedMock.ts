@@ -1,5 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const { PrismaPg } = require("@prisma/adapter-pg");
+const prisma = new PrismaClient({
+	adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
+});
 
 const recipes = require("./seed/recipes.json");
 const cantEats = require("./seed/cantEats.json");
